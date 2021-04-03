@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace TexasHoldem.ConsoleUI
 {
@@ -6,7 +8,17 @@ namespace TexasHoldem.ConsoleUI
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			var host = CreateHostBuilder(args).Build();
+			host.Services.GetRequiredService<TexasHoldem>().Run();
+		}
+
+		private static IHostBuilder CreateHostBuilder(string[] args)
+		{
+			return Host.CreateDefaultBuilder(args)
+				.ConfigureServices(services =>
+				{
+					services.AddTransient<TexasHoldem>();
+				});
 		}
 	}
 }
