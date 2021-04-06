@@ -20,6 +20,7 @@ namespace TexasHoldem.ConsoleUI
 				{
 					services.AddTransient<TexasHoldem>();
 					services.AddTransient<IPlayerCreatorService, PlayerCreatorService>();
+					services.AddTransient<IDetermineDealerService, DetermineDealerService>();
 				});
 		}
 	}

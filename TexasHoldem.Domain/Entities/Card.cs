@@ -42,5 +42,17 @@ namespace TexasHoldem.Domain.Entities
 
 			return (int) lhs.Rank > (int) rhs.Rank;
 		}
+
+		public static bool operator ==(Card lhs, Card rhs)
+		{
+			return lhs.Suit == rhs.Suit && 
+			       lhs.Rank == rhs.Rank;
+		}
+		
+		public static bool operator !=(Card lhs, Card rhs)
+		{
+			return lhs.Suit != rhs.Suit || 
+			       lhs.Rank != rhs.Rank;
+		}
 	}
 }

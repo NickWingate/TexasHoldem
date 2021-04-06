@@ -6,7 +6,7 @@ namespace TexasHoldem.ConsoleUI.Services
 {
 	public class PlayerCreatorService : IPlayerCreatorService
 	{
-		public IList<Player> CreatePlayers(int quantity)
+		public List<Player> CreatePlayers(int quantity)
 		{
 			var players = new List<Player>();
 			for (int i = 0; i < quantity; i++)

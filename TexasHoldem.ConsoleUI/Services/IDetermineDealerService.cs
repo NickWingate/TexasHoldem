@@ -3,8 +3,8 @@ using TexasHoldem.Domain.Entities;
 
 namespace TexasHoldem.ConsoleUI.Services
 {
-	public interface IPlayerCreatorService
+	public interface IDetermineDealerService
 	{
-		List<Player> CreatePlayers(int quantity);
+		int IndexOfDealer(List<Player> players);
 	}
 }
