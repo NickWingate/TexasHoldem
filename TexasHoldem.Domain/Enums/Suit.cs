@@ -2,9 +2,9 @@
 {
 	public enum Suit
 	{
-		Spades,
-		Hearts,
-		Clubs,
-		Diamonds
+		Spades = 4,
+		Hearts = 3,
+		Clubs = 1,
+		Diamonds = 2
 	}
 }

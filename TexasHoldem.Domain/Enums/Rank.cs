@@ -2,7 +2,7 @@
 {
 	public enum Rank
 	{
-		Ace = 1,
+		Ace = 14,
 		Two = 2,
 		Three = 3,
 		Four = 4,
