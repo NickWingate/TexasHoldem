@@ -13,9 +13,9 @@ namespace TexasHoldem.Domain.Entities
 		}
 
 		public List<Card> Cards { get; private set; } = new List<Card>();
-
+		public bool IsEmpty => Cards.Count == 0;
         
-		public void ShuffleDeck()
+		public void Shuffle()
 		{
 			var rng = new Random();
 			for (var n = Cards.Count - 1; n > 0; n--)
@@ -37,6 +37,7 @@ namespace TexasHoldem.Domain.Entities
 			}
 			throw new EmptyDeckException();
 		}
+		
 		private void InitializeDeck()
 		{
 			foreach (Suit s in Enum.GetValues(typeof(Suit)))
