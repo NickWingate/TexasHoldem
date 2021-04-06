@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TexasHoldem.ConsoleUI.Services;
 
 namespace TexasHoldem.ConsoleUI
 {
@@ -18,6 +19,7 @@ namespace TexasHoldem.ConsoleUI
 				.ConfigureServices(services =>
 				{
 					services.AddTransient<TexasHoldem>();
+					services.AddTransient<IPlayerCreatorService, PlayerCreatorService>();
 				});
 		}
 	}
