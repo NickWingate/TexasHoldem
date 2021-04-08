@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TexasHoldem.ConsoleUI.Services;
+using TexasHoldem.Domain.Services;
 
 namespace TexasHoldem.ConsoleUI
 {
@@ -21,6 +22,10 @@ namespace TexasHoldem.ConsoleUI
 					services.AddTransient<TexasHoldem>();
 					services.AddTransient<IPlayerCreatorService, PlayerCreatorService>();
 					services.AddTransient<IDetermineDealerService, DetermineDealerService>();
+					services.AddTransient<IBettingService, BettingService>();
+					services.AddTransient<IPlayerParticipationService, PlayerParticipationService>();
+					services.AddTransient<IDealCardService, DealCardService>();
+					services.AddTransient<IShowCardService, ShowCardService>();
 				});
 		}
 	}
