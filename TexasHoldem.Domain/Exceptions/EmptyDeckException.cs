@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TexasHoldem.Domain.Exceptions
 {
 	public class EmptyDeckException : Exception
 	{
-		public EmptyDeckException() : base("The deck is empty")
+		public EmptyDeckException(string message = "No cards left in deck") : base(message)
 		{
 		}
 	}
