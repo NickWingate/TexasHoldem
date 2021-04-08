@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TexasHoldem.Domain.Entities;
 
-namespace TexasHoldem.ConsoleUI.Services
+namespace TexasHoldem.Domain.Services
 {
 	public interface IDetermineDealerService
 	{

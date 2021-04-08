@@ -12,6 +12,10 @@ namespace TexasHoldem.Domain.Entities
 		public Card(Suit suit, int rank)
 		{
 			Rank = (Rank)rank;
+			if (rank == 1)
+			{
+				Rank = Rank.Ace;
+			}
 			Suit = suit;
 		}
 		public Rank Rank { get; set; }

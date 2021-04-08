@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using TexasHoldem.Domain.Entities;
+using TexasHoldem.Domain.Exceptions;
 
-namespace TexasHoldem.ConsoleUI.Services
+namespace TexasHoldem.Domain.Services
 {
-	//todo: this contains lots of business logic so should be in domain layer
 	public class DetermineDealerService : IDetermineDealerService
 	{
 		public int IndexOfDealer(List<Player> players)
@@ -26,14 +26,18 @@ namespace TexasHoldem.ConsoleUI.Services
 
 		private static int FindHighestCardIndex(List<Player> players)
 		{
+			if (players.Count < 2)
+			{
+				throw new NotEnoughPlayersException(players);
+			}
 			var indexOfPlayerWithHighestCard = 0;
-
+			
+			var highestCard = players[0].Hand[0];
 			for (int i = 1; i < players.Count; i++)
 			{
-				var highestCard = players[0].Hand[0];
 				if (players[i].Hand[0] > highestCard)
 				{
-					highestCard = players[i].Hand[i];
+					highestCard = players[i].Hand[0];
 					indexOfPlayerWithHighestCard = i;
 				}
 			}
