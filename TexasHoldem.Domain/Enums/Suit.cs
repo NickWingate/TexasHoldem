@@ -4,7 +4,7 @@
 	{
 		Spades = 4,
 		Hearts = 3,
-		Clubs = 1,
-		Diamonds = 2
+		Diamonds = 2,
+		Clubs = 1
 	}
 }

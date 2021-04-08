@@ -13,6 +13,7 @@ namespace TexasHoldem.Domain.Entities
 		}
 
 		public List<Card> Cards { get; private set; } = new List<Card>();
+		public int Count => Cards.Count;
 		public bool IsEmpty => Cards.Count == 0;
         
 		public void Shuffle()
