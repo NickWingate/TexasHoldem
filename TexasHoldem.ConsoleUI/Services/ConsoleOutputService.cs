@@ -67,7 +67,7 @@ namespace TexasHoldem.ConsoleUI.Services
 				var cards = string.Join(", ", player.Hand.Select(c => c.ToMarkupString()));
 				AnsiConsole.MarkupLine($"{player.Name}'s Cards:\n{cards}\nEnter to clear");
 				Console.ReadLine();
-				Console.SetCursorPosition(0, Console.CursorTop - 2);
+				Console.SetCursorPosition(0, Console.CursorTop - 3);
 				Console.Write(new String(' ', Console.BufferWidth));
 			}
 		}
