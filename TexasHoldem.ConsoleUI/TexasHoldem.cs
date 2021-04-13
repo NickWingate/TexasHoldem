@@ -1,18 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
+using Spectre.Console;
 using TexasHoldem.ConsoleUI.Services;
 using TexasHoldem.Domain.Entities;
+using TexasHoldem.Domain.Services;
 
 namespace TexasHoldem.ConsoleUI
 {
 	// https://www.instructables.com/Learn-To-Play-Poker---Texas-Hold-Em-aka-Texas-Ho/
+
 	public class TexasHoldem
 	{
 		private readonly IPlayerCreatorService _playerCreator;
 		private readonly IDetermineDealerService _determineDealerService;
-		public TexasHoldem(IPlayerCreatorService playerCreator)
+		private readonly IPlayRoundService _playRoundService;
+		private readonly IConsoleOutputService _consoleOutputService;
+
+		public TexasHoldem(
+			IPlayerCreatorService playerCreator, 
+			IDetermineDealerService determineDealerService, 
+			IPlayRoundService playRoundService, 
+			IConsoleOutputService consoleOutputService)
 		{
 			_playerCreator = playerCreator;
+			_determineDealerService = determineDealerService;
+			_playRoundService = playRoundService;
+			_consoleOutputService = consoleOutputService;
 		}
 
 		
@@ -21,34 +33,19 @@ namespace TexasHoldem.ConsoleUI
 		{
 			var deck = new Deck();
 			deck.Shuffle();
-			var players = _playerCreator.CreatePlayers(2);
-
-			var indexOfDealer = _determineDealerService.IndexOfDealer(players);
 			
+			var players = _playerCreator.CreatePlayers(2);
+			var pot = new Pot();
+
+			var indexOfFirstDealer = _determineDealerService.IndexOfDealer(players);
+			var indexOfDealer = indexOfFirstDealer;
 			while (!deck.IsEmpty)
 			{
 				Console.WriteLine("New round");
-				PlayRound(players, deck, indexOfDealer);
-
+				_consoleOutputService.OutputChips(players);
+				_playRoundService.PlayRound(players, deck, pot, indexOfFirstDealer, 5);
+				indexOfDealer = (indexOfDealer + 1) % players.Count;
 			}
-		}
-
-		private void PlayRound(List<Player> players, Deck deck, object indexOfDealer)
-		{
-			var pot = 0;
-			var communityCards = new List<Card>(5);
-			BlindBets(players, indexOfDealer, blindAmount : 10, ref pot);
-			DealCards(players, deck, indexOfDealer);
-			ShowCards(players);
-			
-			PlayersAct(players, pot, indexOfDealer, firstRound: true);
-			DealCommunityCard(3, communityCards);
-			while (playing)
-			{
-				PlayersAct(players, pot, indexOfDealer, firstRound: false);
-				DealCommunityCard(1, communityCards);
-			}
-			
 		}
 	}
 }

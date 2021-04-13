@@ -9,7 +9,7 @@ namespace TexasHoldem.Domain.Services
 	{
 		public void DealCards(List<Player> players, Deck deck, int cardsPerHand)
 		{
-			CheckForEnoughCards(deck, players.Count, cardsPerHand);
+			CheckForEnoughCards(deck, players.Count * cardsPerHand);
 			for (int i = 0; i < cardsPerHand; i++)
 			{
 				foreach (var player in players)
@@ -19,12 +19,20 @@ namespace TexasHoldem.Domain.Services
 			}
 		}
 
-		private void CheckForEnoughCards(Deck deck, int playersCount, int cardsPerHand)
+		public void DealCommunityCards(Deck deck, List<Card> cards, int amount)
 		{
-			var cardsNeeded = playersCount * cardsPerHand;
+			CheckForEnoughCards(deck, amount);
+			for (int i = 0; i < amount; i++)
+			{
+				cards.Add(deck.DrawCard());
+			}
+		}
+
+		private void CheckForEnoughCards(Deck deck, int cardsNeeded)
+		{
 			if (cardsNeeded > deck.Count)
 			{
-				throw new EmptyDeckException("There are not enough cards for another round");
+				throw new EmptyDeckException("There are not enough cards to deal");
 			}
 		}
 	}

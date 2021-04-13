@@ -5,7 +5,8 @@ namespace TexasHoldem.Domain.Services
 {
 	public interface IBettingService
 	{
-		void BlindBets(List<Player> players, int indexOfDealer, int blindAmount, ref int pot);
+		void BlindBets(Player smallBlind, Player bigBlind, int blindAmount, Pot pot);
+		(Player, Player) DetermineBlindBetPlayers(List<Player> players, int indexOfDealer);
 
 		int DetermineSmallBlindPrice(int bigBlind);
 	}

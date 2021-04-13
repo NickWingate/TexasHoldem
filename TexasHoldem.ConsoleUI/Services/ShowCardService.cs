@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Spectre.Console;
+using TexasHoldem.ConsoleUI.Extensions;
 using TexasHoldem.Domain.Entities;
 
 namespace TexasHoldem.ConsoleUI.Services
@@ -20,7 +22,7 @@ namespace TexasHoldem.ConsoleUI.Services
 			Console.ReadLine();
 			foreach (var card in player.Hand)
 			{
-				Console.WriteLine(card.ToString());
+				AnsiConsole.MarkupLine(card.ToMarkupString());
 			}
 			Console.WriteLine("Press enter to clear cards from screen");
 			Console.ReadLine();

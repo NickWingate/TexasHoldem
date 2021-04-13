@@ -1,8 +1,9 @@
-﻿using TexasHoldem.Domain.Enums;
+﻿using System;
+using TexasHoldem.Domain.Enums;
 
 namespace TexasHoldem.Domain.Entities
 {
-	public class Card
+	public class Card : IComparable
 	{
 		public Card(Suit suit, Rank rank)
 		{
@@ -20,13 +21,47 @@ namespace TexasHoldem.Domain.Entities
 		}
 		public Rank Rank { get; set; }
 		public Suit Suit { get; set; }
-		
+		public CardColor Color => DetermineCardColor();
+
+		private CardColor DetermineCardColor()
+		{
+			return Suit == Suit.Spades || Suit == Suit.Clubs ? 
+				CardColor.Black : CardColor.Red;
+		}
+
 
 		public override string ToString()
 		{
 			return $"{Rank} of {Suit}";
 		}
 
+		public int CompareTo(object obj)
+		{
+			if (obj is null) return 1;
+			var otherCard = obj as Card;
+			if (this < otherCard) return 1;
+			if (this > otherCard) return -1;
+			return 0;
+		}
+
+		protected bool Equals(Card other)
+		{
+			return Rank == other.Rank && Suit == other.Suit;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != this.GetType()) return false;
+			return Equals((Card) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine((int) Rank, (int) Suit);
+		}
+		
 		public static bool operator <(Card lhs, Card rhs)
 		{
 			if (lhs.Rank == rhs.Rank)
@@ -46,7 +81,7 @@ namespace TexasHoldem.Domain.Entities
 
 			return (int) lhs.Rank > (int) rhs.Rank;
 		}
-
+		
 		public static bool operator ==(Card lhs, Card rhs)
 		{
 			return lhs.Suit == rhs.Suit && 

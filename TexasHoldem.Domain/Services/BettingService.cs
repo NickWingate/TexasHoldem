@@ -7,7 +7,15 @@ namespace TexasHoldem.Domain.Services
 	public class BettingService : IBettingService
 	{
 		//https://en.wikipedia.org/wiki/Blind_(poker)#:~:text=The%20blinds%20are%20forced%20bets,range%20from%20none%20to%20three.
-		public void BlindBets(List<Player> players, int indexOfDealer, int blindAmount, ref int pot)
+		public void BlindBets(Player smallBlind, Player bigBlind, int blindAmount, Pot pot)
+		{
+			var smallBlindPrice = DetermineSmallBlindPrice(blindAmount);
+			smallBlind.AddToPot(smallBlindPrice, pot);
+			bigBlind.AddToPot(blindAmount, pot);
+			
+		}
+
+		public (Player, Player) DetermineBlindBetPlayers(List<Player> players, int indexOfDealer)
 		{
 			var smallBlind = CircularIncrement(players, indexOfDealer, 1);
 			var bigBlind = CircularIncrement(players, indexOfDealer, 2);
@@ -17,13 +25,7 @@ namespace TexasHoldem.Domain.Services
 				smallBlind = players[indexOfDealer];
 				bigBlind = CircularIncrement(players, indexOfDealer, 1);
 			}
-			
-			var smallBlindPrice = DetermineSmallBlindPrice(blindAmount);
-			smallBlind.ChipCount -= smallBlindPrice;
-			
-			bigBlind.ChipCount -= blindAmount;
-
-			pot += smallBlindPrice + blindAmount;
+			return (smallBlind, bigBlind);
 		}
 
 		public int DetermineSmallBlindPrice(int bigBlind)

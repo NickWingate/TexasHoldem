@@ -26,6 +26,11 @@ namespace TexasHoldem.ConsoleUI
 					services.AddTransient<IPlayerParticipationService, PlayerParticipationService>();
 					services.AddTransient<IDealCardService, DealCardService>();
 					services.AddTransient<IShowCardService, ShowCardService>();
+					services.AddTransient<IPlayerActionService, PlayerActionService>();
+					services.AddTransient<IAvailableActionProvider, AvailableActionProvider>();
+					services.AddTransient<IHandEvaluator, HandEvaluator>();
+					services.AddTransient<IWinnerService, WinnerService>();
+					services.AddScoped<IConsoleOutputService, ConsoleOutputService>();
 				});
 		}
 	}

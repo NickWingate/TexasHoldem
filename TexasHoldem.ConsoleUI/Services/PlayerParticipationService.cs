@@ -19,9 +19,9 @@ namespace TexasHoldem.ConsoleUI.Services
 		{
 			var smallBlindPrice = _bettingService.DetermineSmallBlindPrice(blindPrice);
 			var participatingPlayers = new List<Player>();
-			
-			Console.WriteLine($"The Big Blind for this round is {blindPrice} chips\n" +
-			                  $" and the Small Blind is {smallBlindPrice}");
+
+			Console.WriteLine($"Big Blind: {blindPrice} chips");
+			Console.WriteLine($"Small Blind: {smallBlindPrice} chips");
 			
 			foreach (var player in players)
 			{
