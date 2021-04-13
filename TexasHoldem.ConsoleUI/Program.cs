@@ -6,7 +6,7 @@ using TexasHoldem.Domain.Services;
 
 namespace TexasHoldem.ConsoleUI
 {
-	class Program
+	static class Program
 	{
 		static void Main(string[] args)
 		{

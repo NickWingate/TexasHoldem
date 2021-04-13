@@ -65,7 +65,7 @@ namespace TexasHoldem.ConsoleUI.Services
 			foreach (var player in players)
 			{
 				var cards = string.Join(", ", player.Hand.Select(c => c.ToMarkupString()));
-				AnsiConsole.MarkupLine($"{player.Name}'s Cards:\n{cards}\nEnter to clear");
+				AnsiConsole.MarkupLine($"{player.Name}'s Cards:            \n{cards}\nEnter to clear               ");
 				Console.ReadLine();
 				Console.SetCursorPosition(0, Console.CursorTop - 3);
 				Console.Write(new String(' ', Console.BufferWidth));

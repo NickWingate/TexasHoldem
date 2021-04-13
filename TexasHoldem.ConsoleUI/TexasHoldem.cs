@@ -42,7 +42,7 @@ namespace TexasHoldem.ConsoleUI
 			var indexOfDealer = indexOfFirstDealer;
 			while (!deck.IsEmpty)
 			{
-				AnsiConsole.Render(new Rule("[bold yellow]New Round[/]"));
+				AnsiConsole.Render(new Rule("[bold yellow]New Round[/-]"));
 				_consoleOutputService.OutputChips(players);
 				_playRoundService.PlayRound(players, deck, pot, indexOfFirstDealer, 5);
 				indexOfDealer = (indexOfDealer + 1) % players.Count;

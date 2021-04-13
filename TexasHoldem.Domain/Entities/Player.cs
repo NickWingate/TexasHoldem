@@ -9,8 +9,7 @@ namespace TexasHoldem.Domain.Entities
 		public string Name { get; set; }
 		public List<Card> Hand { get; set; } = new List<Card>();
 		public int ChipCount { get; set; }
-		public HandRanking BestHand { get; set; }
-
+		public HandRanking BestHand { get; set; }	
 		public int CurrentBet { get; set; }
 
 		public void AddToPot(int amount, Pot pot)

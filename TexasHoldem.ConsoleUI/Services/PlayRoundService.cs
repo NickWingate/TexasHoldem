@@ -147,10 +147,6 @@ namespace TexasHoldem.ConsoleUI.Services
 				{
 					var actionTaken = _actionService.Act(players[i], pot, true);
 					FurtherAction(players, players[i], pot, actionTaken);
-					// if (!IsEnoughPlayers(players))
-					// {
-					// 	return;
-					// }
 				}
 			}
 		}
