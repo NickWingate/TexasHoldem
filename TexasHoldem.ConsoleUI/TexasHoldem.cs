@@ -31,6 +31,7 @@ namespace TexasHoldem.ConsoleUI
 		
 		public void Run()
 		{
+			AnsiConsole.Render(new FigletText("Texas Hold'em").Color(Color.Yellow));
 			var deck = new Deck();
 			deck.Shuffle();
 			
@@ -41,7 +42,7 @@ namespace TexasHoldem.ConsoleUI
 			var indexOfDealer = indexOfFirstDealer;
 			while (!deck.IsEmpty)
 			{
-				Console.WriteLine("New round");
+				AnsiConsole.Render(new Rule("[bold yellow]New Round[/]"));
 				_consoleOutputService.OutputChips(players);
 				_playRoundService.PlayRound(players, deck, pot, indexOfFirstDealer, 5);
 				indexOfDealer = (indexOfDealer + 1) % players.Count;

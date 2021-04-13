@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Spectre.Console;
 using TexasHoldem.Domain.Entities;
 
 namespace TexasHoldem.ConsoleUI.Services
@@ -19,12 +20,10 @@ namespace TexasHoldem.ConsoleUI.Services
 
 		private Player GetPlayerDetails()
 		{
-			Console.Write("Name: ");
-			var name = Console.ReadLine();
-			Console.Write("Amount of chips to start: ");
-			var chips = Convert.ToInt32(Console.ReadLine());
+			var name = AnsiConsole.Ask<string>("Name:");
+			var chips = AnsiConsole.Ask<int>("Amount of starting chips(recommended 100+):");
 			
-			return new Player()
+			return new Player
 			{
 				Name = name,
 				ChipCount = chips,

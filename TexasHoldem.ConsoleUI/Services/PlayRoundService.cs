@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using TexasHoldem.Domain.Entities;
 using TexasHoldem.Domain.Enums;
 using TexasHoldem.Domain.Services;
@@ -11,7 +12,6 @@ namespace TexasHoldem.ConsoleUI.Services
 		private readonly IBettingService _bettingService;
 		private readonly IPlayerParticipationService _playerParticipationService;
 		private readonly IDealCardService _dealCardService;
-		private readonly IShowCardService _showCardService;
 		private readonly IPlayerActionService _actionService;
 		private readonly IWinnerService _winnerService;
 		private readonly IConsoleOutputService _consoleOutputService;
@@ -20,7 +20,6 @@ namespace TexasHoldem.ConsoleUI.Services
 			IBettingService bettingService, 
 			IPlayerParticipationService playerParticipationService, 
 			IDealCardService dealCardService, 
-			IShowCardService showCardService, 
 			IPlayerActionService actionService, 
 			IWinnerService winnerService, 
 			IConsoleOutputService consoleOutputService)
@@ -28,7 +27,6 @@ namespace TexasHoldem.ConsoleUI.Services
 			_bettingService = bettingService;
 			_playerParticipationService = playerParticipationService;
 			_dealCardService = dealCardService;
-			_showCardService = showCardService;
 			_actionService = actionService;
 			_winnerService = winnerService;
 			_consoleOutputService = consoleOutputService;
@@ -44,7 +42,21 @@ namespace TexasHoldem.ConsoleUI.Services
 				return;
 			}
 			PlayersAct(participatingPlayers, pot, indexOfDealer);
+			if (IsEnoughPlayers(participatingPlayers))
+			{
+				PostFlopRounds(deck, pot, indexOfDealer, communityCards, participatingPlayers);
+			}
+			
+			var winner = _winnerService.FindWinner(participatingPlayers, communityCards);
+			
+			_consoleOutputService.OutputPlayerHands(participatingPlayers);
+			Console.WriteLine($"{winner} wins with {string.Join(", ", winner.Hand)}");
+			winner.WinChips(pot);
+			ClearHands(players);
+		}
 
+		private void PostFlopRounds(Deck deck, Pot pot, int indexOfDealer, List<Card> communityCards, List<Player> participatingPlayers)
+		{
 			var stageCardsDealtMap = new Dictionary<string, int>()
 			{
 				{"Flop", 3},
@@ -62,13 +74,6 @@ namespace TexasHoldem.ConsoleUI.Services
 					break;
 				}
 			}
-
-			var winner = _winnerService.FindWinner(participatingPlayers, communityCards);
-			
-			_consoleOutputService.OutputPlayerHands(participatingPlayers);
-			Console.WriteLine($"{winner} wins with {string.Join(", ", winner.Hand)}");
-			winner.WinChips(pot);
-			ClearHands(players);
 		}
 
 		private bool PreFlop(List<Player> players, Deck deck, Pot pot, int indexOfDealer, int blindAmount,
@@ -86,7 +91,7 @@ namespace TexasHoldem.ConsoleUI.Services
 			_consoleOutputService.OutputRoles(smallBlind, bigBlind, players[indexOfDealer]);
 
 			_dealCardService.DealCards(participatingPlayers, deck, 2);
-			_showCardService.ShowCards(participatingPlayers);
+			_consoleOutputService.OutputPrivateCards(players);
 			return true;
 		}
 
@@ -136,12 +141,16 @@ namespace TexasHoldem.ConsoleUI.Services
 
 		private void CollectChipsFromNewBet(List<Player> players, Pot pot)
 		{
-			foreach (var player in players)
+			for (var i = players.Count - 1; i >= 0; i--)
 			{
-				if (player.CurrentBet != pot.CurrentBet)
+				if (players[i].CurrentBet != pot.CurrentBet)
 				{
-					var actionTaken = _actionService.Act(player, pot, true);
-					FurtherAction(players, player, pot, actionTaken);
+					var actionTaken = _actionService.Act(players[i], pot, true);
+					FurtherAction(players, players[i], pot, actionTaken);
+					// if (!IsEnoughPlayers(players))
+					// {
+					// 	return;
+					// }
 				}
 			}
 		}

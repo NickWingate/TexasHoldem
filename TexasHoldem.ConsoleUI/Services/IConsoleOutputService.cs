@@ -10,5 +10,6 @@ namespace TexasHoldem.ConsoleUI.Services
 		void OutputPlayerHands(List<Player> players);
 		void OutputRoles(Player smallBlind, Player bigBlind, Player dealer);
 		void OutputPot(Pot pot);
+		void OutputPrivateCards(List<Player> players);
 	}
 }
