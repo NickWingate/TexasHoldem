@@ -1,6 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=79cb0578_002Ddd18_002D4e58_002D972a_002D9adf8894d793/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;tests&amp;gt;\&amp;lt;TexasHoldem.Domain.UnitTests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="D:\Programming\C#\TexasHoldem\TexasHoldem.Domain.UnitTests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;TexasHoldem.Domain.UnitTests&amp;gt;" /&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;Project Location="D:\Programming\C#\TexasHoldem\TexasHoldem.Domain.UnitTests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;TexasHoldem.Domain.UnitTests&amp;gt;" /&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;xUnit::284A8D7A-0B7D-4D2E-BCAD-953BD9880D41::net5.0-windows7.0::TexasHoldem.WpfServices.UnitTests.CardCodeServiceTests.GetCode_ShouldReturnCardCode_WhenEasyCard&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;Project Location="D:\Programming\C#\TexasHoldem\TexasHoldem.WpfServices.UnitTests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;TexasHoldem.WpfServices.UnitTests&amp;gt;" /&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Holdem/@EntryIndexedValue">True</s:Boolean>
