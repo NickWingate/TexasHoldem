@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="TexasHoldem.WpfUI.Controls.PlayingCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:TexasHoldem.WpfUI.Controls"
+             xmlns:converters="clr-namespace:TexasHoldem.WpfUI.Converters"
+             mc:Ignorable="d"
+             MinHeight="100" MinWidth="70">
+    <UserControl.Resources>
+        <converters:CardToImageSourceConverter x:Key="CardToImageSourceConverter"></converters:CardToImageSourceConverter>
+    </UserControl.Resources>
+    <UserControl.Template>
+        <ControlTemplate>
+            <Image Source="{Binding Path=Card, 
+                RelativeSource={RelativeSource AncestorType={x:Type local:PlayingCard}}, 
+                Converter={StaticResource CardToImageSourceConverter}}"></Image>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>
